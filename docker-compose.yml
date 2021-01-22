@@ -4,5 +4,17 @@ services:
     image: somkiat/xyz:1.0.0
     ports:
       - 8888:8080
-  db:
+
+  mongodb:
     image: mongo:3.6.21-xenial
+  
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./data.sql:/docker-entrypoint-initdb.d/2.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
+      - MYSQL_DATABASE=tododb
